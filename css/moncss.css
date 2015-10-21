@@ -1,0 +1,39 @@
+.navbar-fixed-bottom {
+    height: 30px;
+    min-height: 10px;
+}
+.navbar-text2 {
+    padding-top: 3px;
+    color : #999;
+}
+body { 
+    padding-bottom: 20px;
+    padding-top : 60px;
+}
+
+.navbar-header {
+    background-color: buttonhighlight;
+    color : white;
+}
+.color {
+    color: black;
+}
+table {
+    border : 1px solid #adadad;
+}
+
+#panel {
+    margin-top : 50px;
+}
+
+.background-body {
+    background-color: #ededed;
+}
+
+.red {
+    color : red;
+}
+
+#divLogin.form-group{
+    margin-bottom: 0px !important;
+}          
