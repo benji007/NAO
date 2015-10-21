@@ -31,7 +31,7 @@ if (isset($_POST['connexion'])) {
 
     //VARIABLES CONTENANT LE BON LOGIN ET MOT DE PASSE 
 
-    $connexion_serveur = mysqli_connect("localhost", "root", "root", "tp11");
+    $connexion_serveur = mysqli_connect("localhost", "root", "", "nao");
 
 
 
@@ -50,7 +50,7 @@ if (isset($_POST['connexion'])) {
 
     $sql_utilisateur = "SELECT * FROM utilisateurs WHERE 
 
-    login='" . $login_saisi . "' AND mot_passe='" . $mot_passe_saisi . "'";
+    email='" . $login_saisi . "' AND motdepasse='" . $mot_passe_saisi . "'";
 
     $req_utilisateur = mysqli_query($connexion_serveur, $sql_utilisateur);
 
@@ -131,8 +131,8 @@ if (isset($_POST['connexion'])) {
                         
                         
                         <div class='form-group has-feedback'>
-                                <label name="login" class='control-label'>Nom de compte :</label>
-                                <input  class="form-control" type="text" name="login" id="login" placeholder="Login" >
+                                <label name="login" class='control-label'>Login :</label>
+                                <input  class="form-control" type="text" name="login" id="login" placeholder="Email" >
                         </div><br><br>
 
                          <div class='form-group has-feedback'>

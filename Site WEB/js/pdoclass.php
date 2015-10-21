@@ -5,9 +5,9 @@
 class PdoSlam1 {
 
    private static $serveur = 'mysql:host=localhost';
-   private static $bdd = 'dbname=tp11';
+   private static $bdd = 'dbname=nao';
    private static $user = 'root';
-   private static $mdp = 'root';
+   private static $mdp = '';
    private static $monPdo = null;
    private static $monPdoSlam1 = null;
 
