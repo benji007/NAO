@@ -151,16 +151,29 @@ $pdo = PdoSlam1::getPdoSlam1();
 
                 <div class="panel-body">
                     <form class="login form-inline" action="ajoutRegister.php" method="POST" role="form" name="inscription" id="inscription"> 
-
-                        
-
-                            <div id='divLogin' class='form-group has-feedback'>
-                                <label name="login" class='control-label'>Nom de compte :</label>
-                                <input  class="form-control" type="text" name="login" id="identifiant" placeholder="Login">
-                                <span id="spanLogin" style="margin-top: 20px;"></span>
-                            </div>__________________________
+							 
+							 <div class='form-group has-feedback'><br>
+                                <label name="nom">Nom : </label>
+                                <input  class="form-control" type="nom" name="nom" id="nom" placeholder="Nom" data-container="body" data-content="Veuillez entrer votre nom."> 
+                            </div>
+							
+							<div class='form-group has-feedback'><br>
+                                <label name="prenom"> Prenom : </label>
+                                <input  class="form-control" type="prenom" name="prenom" id="prenom" placeholder="Prenom" data-container="body" data-content="Veuillez entrer votre prenom."> 
+                            </div>
+							 
+							 </div>__________________________<br><br> 
+							 
+							<div class='form-group has-feedback'><br>
+                                <label name="email">Adresse email : </label>
+                                <input  class="form-control" type="email" name="identifiant" id="identifiant" placeholder="Adresse email" data-container="body" data-content="Veuillez entrer correctement votre adresse mail."> 
+                            </div>
                             
-
+                            <div class='form-group has-feedback'><br>
+                                <label name="email2">Confirmation adresse email : </label>
+                                <input  class="form-control" type="email" name="identifiant2" id="identifiant2" placeholder="Confirmez adresse email" data-container="body" data-content="L'adresse email de confirmation doit être identique à l'adresse email."> 
+                            </div>__________________________<br><br>
+                        
                             <div class='form-group has-feedback'>
                                 <br>
                                 <label name="mot_passe" class='control-label'>Mot de passe : </label>
@@ -172,16 +185,6 @@ $pdo = PdoSlam1::getPdoSlam1();
                                 <input  class="form-control" type="password" name="mot_passe2" id="mot_passe2" placeholder="Confirmez mot de passe" data-container="body" data-content="Le mot de passe de confirmation doit être identique au mot de passe."> 
                             </div>__________________________
                             
-                            <div class='form-group has-feedback'><br>
-                                <label name="email">Adresse email : </label>
-                                <input  class="form-control" type="email" name="email" id="email" placeholder="Adresse email" data-container="body" data-content="Veuillez entrer correctement votre adresse mail."> 
-                            </div>
-                            
-                            <div class='form-group has-feedback'><br>
-                                <label name="email2">Confirmation adresse email : </label>
-                                <input  class="form-control" type="email" name="email2" id="email2" placeholder="Confirmez adresse email" data-container="body" data-content="L'adresse email de confirmation doit être identique à l'adresse email."> 
-                            </div>__________________________<br><br>
-
                             <button type="button" class=" btn btn-primary" id="bouton_verif">
                                 <span class="glyphicon glyphicon-ok"></span> S'enregistrer
                             </button>

@@ -3,8 +3,8 @@
 //Connection au serveur
     $host = 'localhost';
     $user = 'root';
-    $password = 'root';
-    $bdd = 'tp11';
+    $password = '';
+    $bdd = 'nao';
     $base = mysql_connect($host, $user, $password);
     mysql_select_db($bdd) or die("Impossible de se connecter a la base de donnees $bdd");
 
@@ -17,7 +17,7 @@
 
         $id = htmlspecialchars($id);
 
-        $sql = "select * from utilisateurs where login='$id'";
+        $sql = "select * from utilisateurs where email='$id'";
 
         $envoi_requete = mysql_query($sql);
 
@@ -33,3 +33,4 @@
         echo "Erreur lors de la connexion à la bd...";
     }
  
+?>
