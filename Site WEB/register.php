@@ -1,5 +1,12 @@
-<!DOCTYPE html>
+
 <?php
+	$hostname = "localhost";
+	$user = "root";
+	$pass = "";
+	$db1="nao";
+	$database = @mysql_connect("$hostname", "$user", "$pass");
+	@mysql_select_db($db1, $database);
+								 
 require_once './js/pdoclass.php';
 $pdo = PdoSlam1::getPdoSlam1();
 ?>
@@ -129,7 +136,6 @@ $pdo = PdoSlam1::getPdoSlam1();
 
             </nav></div>
 
-
         <!--         Navbar bottom -->
 
         <div class="navbar navbar-inverse navbar-fixed-bottom">
@@ -160,10 +166,9 @@ $pdo = PdoSlam1::getPdoSlam1();
 							<div class='form-group has-feedback'><br>
                                 <label name="prenom"> Prenom : </label>
                                 <input  class="form-control" type="prenom" name="prenom" id="prenom" placeholder="Prenom" data-container="body" data-content="Veuillez entrer votre prenom."> 
-                            </div>
+                            </div>__________________________<br><br> 
 							 
-							 </div>__________________________<br><br> 
-							 
+							
 							<div class='form-group has-feedback'><br>
                                 <label name="email">Adresse email : </label>
                                 <input  class="form-control" type="email" name="identifiant" id="identifiant" placeholder="Adresse email" data-container="body" data-content="Veuillez entrer correctement votre adresse mail."> 
@@ -183,15 +188,17 @@ $pdo = PdoSlam1::getPdoSlam1();
                             <div class='form-group has-feedback'><br>
                                 <label name="mot_passe2">Confirmation mot de passe : </label>
                                 <input  class="form-control" type="password" name="mot_passe2" id="mot_passe2" placeholder="Confirmez mot de passe" data-container="body" data-content="Le mot de passe de confirmation doit être identique au mot de passe."> 
-                            </div>__________________________
+                            </div>__________________________<br><br>
 							
 							 <div class='form-group has-feedback'><br>
                                 <label for="type">Type du compte</label>
-								<select name="type" id="type">
+								<select name="liste_type" id="liste_type">
 								<option value="" selected="selected">Choississez votre profil</option>
 								
 								<?php
-								 $sql= "SELECT * FROM typecompte WHERE idtype=1 AND idtype=2";
+	
+								 
+								 $sql= "SELECT * FROM typecompte WHERE idtype > 0";
 								 $req= mysql_query($sql);
 								while ($res= mysql_fetch_array($req))
 								{
@@ -200,34 +207,23 @@ $pdo = PdoSlam1::getPdoSlam1();
 									echo '<option value= "'.$id.'"> '.$libelle.' </option>';
 									
 								}
+								
 								?>
-                            </div>
+								</select>
 							
-							<?php
-								if $_POST['type']='enseignant'
-								{ 
-									'<div class=''form-group has-feedback''>
-									<br>
-									<label name="code_enseignant" class=''control-label''>Code Enseignant </label>
-									<input  class="form-control" type="password" name="code_enseignant" id="code_enseignant" placeholder="Code enseignant" data-container="body" data-content="Veuillez saisir votre code enseignant">
-									</div>'
-								
-								} ?>
-								
-								   __________________________
-                            
-                            <button type="button" class=" btn btn-primary" id="bouton_verif">
-                                <span class="glyphicon glyphicon-ok"></span> S'enregistrer
-                            </button>
-
-                            <a href="index.php" style="margin-left: 10px;">Connexion</a>
-
-
-                          
+							</div>__________________________<br><br>
+							
+         
+							<input type='submit' class=" btn btn-primary" value="Enregistrer">
+							<a href="index.php" style="margin-left: 10px;">Connexion</a>
+							
                     </form>  
+				</div>
 
                 </div>
             </div>
-        </div>
+       
     </ul>
+	</body>
 </html>
+
