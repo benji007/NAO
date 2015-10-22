@@ -17,7 +17,7 @@
 
         $id = htmlspecialchars($id);
 
-        $sql = "select * from utilisateurs where email='$id'";
+        $sql = "SELECT * FROM utilisateurs WHERE email='$id'";
 
         $envoi_requete = mysql_query($sql);
 

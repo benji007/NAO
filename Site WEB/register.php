@@ -184,11 +184,41 @@ $pdo = PdoSlam1::getPdoSlam1();
                                 <label name="mot_passe2">Confirmation mot de passe : </label>
                                 <input  class="form-control" type="password" name="mot_passe2" id="mot_passe2" placeholder="Confirmez mot de passe" data-container="body" data-content="Le mot de passe de confirmation doit être identique au mot de passe."> 
                             </div>__________________________
+							
+							 <div class='form-group has-feedback'><br>
+                                <label for="type">Type du compte</label>
+								<select name="type" id="type">
+								<option value="" selected="selected">Choississez votre profil</option>
+								
+								<?php
+								 $sql= "SELECT * FROM typecompte WHERE idtype=1 AND idtype=2";
+								 $req= mysql_query($sql);
+								while ($res= mysql_fetch_array($req))
+								{
+									$id=$res['idtype'];
+									$libelle=$res['libelle'];
+									echo '<option value= "'.$id.'"> '.$libelle.' </option>';
+									
+								}
+								?>
+                            </div>
+							
+							<?php
+								if $_POST['type']='enseignant'
+								{ 
+									'<div class=''form-group has-feedback''>
+									<br>
+									<label name="code_enseignant" class=''control-label''>Code Enseignant </label>
+									<input  class="form-control" type="password" name="code_enseignant" id="code_enseignant" placeholder="Code enseignant" data-container="body" data-content="Veuillez saisir votre code enseignant">
+									</div>'
+								
+								} ?>
+								
+								   __________________________
                             
                             <button type="button" class=" btn btn-primary" id="bouton_verif">
                                 <span class="glyphicon glyphicon-ok"></span> S'enregistrer
                             </button>
-
 
                             <a href="index.php" style="margin-left: 10px;">Connexion</a>
 
