@@ -70,7 +70,7 @@ if (isset($_POST['connexion'])) {
 //30 secondes de vie
         //REDIRECTION VERS UNE AUTRE PAGE ET SCRIPT INTERROMPU 
 
-        header("location:liste_entreprises.php");
+        header("location:vos_dictees.php");
 
         exit;
     } else {
@@ -100,7 +100,7 @@ if (isset($_POST['connexion'])) {
         <div class="navbar  navbar-inverse navbar-fixed-top">
             <nav class="nav-collapse" role="navigation">
                 <ul class="nav navbar-nav">
-                    <li><a class="navbar-brand" href="liste_entreprises.php">Connexion à la base de données</a></li>
+                    <li><a class="navbar-brand" href="vos_dictees.php">Connexion à la base de données</a></li>
 
             </nav></div>
 
