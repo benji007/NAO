@@ -1,6 +1,5 @@
 <?php session_start() ?>
 <?php
-
 // Connexion � la base de donn�es
 $host = 'localhost';
 $user = 'root';
@@ -15,4 +14,5 @@ $sql = "DELETE FROM texte WHERE idtexte='" . $_GET['id'] . "'";
 $envoi_requete = mysql_query($sql);
 
 header('location: vos_dictees.php');
+
 ?>
