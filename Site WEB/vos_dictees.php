@@ -138,7 +138,7 @@ mysql_query("SET NAMES UTF8");
 		{
 			$niveau=$resultats2['libelle_niveau'];
 			 echo "<div class='table-responsive col-md-3 .col-md-offset-3'><table class='table table-striped'>" .
-               "<tr><td>N° : </td><td>" . $compt++ . "</td><td ALIGN='right'>" . "<a href='vos_dictees.php?texte=" . $idtexte . "'><span class='glyphicon glyphicon-pencil' ></span> &nbsp;" . "<a href ='suppr_dictees.php?id=".$resultats['idtexte']."'><span class='glyphicon glyphicon-remove-circle red' ></span>" . "</td></tr>" . 
+               "<tr><td>N° : </td><td>" . $compt++ . "</td><td ALIGN='right'>" . "<a href='modif_dictees.php?texte=" . $resultats['idtexte'] . "'><span class='glyphicon glyphicon-pencil' ></span> &nbsp;" . "<a href ='suppr_dictees.php?id=".$resultats['idtexte']."'><span class='glyphicon glyphicon-remove-circle red' ></span>" . "</td></tr>" . 
                "<tr><td>Titre : </td><td COLSPAN=2> " . $titre. "</td></tr>" .
                "<tr><td>Texte : </td><td COLSPAN=2>" . $corps. "</td></tr>" .
                "<tr><td>Auteur: </td><td COLSPAN=2>" . $auteur. "</td></tr>" .
