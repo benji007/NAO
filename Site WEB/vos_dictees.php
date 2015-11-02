@@ -29,7 +29,7 @@ mysql_query("SET NAMES UTF8");
         <link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css">
         <script src="js/bootstrap.min.js"></script>
         <link rel="stylesheet" href='css/moncss.css' type='text/javascript'>
-        <title>Entreprises</title>
+        <title>NAO Dictées</title>
 
         <!--Javascript-->
         <script>
