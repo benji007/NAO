@@ -12,6 +12,7 @@ $password = '';
 $bdd = 'nao';
 $base = mysql_connect($host, $user, $password);
 mysql_select_db($bdd) or die("Impossible de se connecter a la base de donnees $bdd");
+mysql_query("SET NAMES UTF8");
 ?>
 <!DOCTYPE html>
 
@@ -91,10 +92,9 @@ mysql_select_db($bdd) or die("Impossible de se connecter a la base de donnees $b
 
             // Affichage de la table sous forme de tableaux
             while ($resultats = mysql_fetch_assoc($envoi_requete)) {
-
                 echo "<form class='form-horizontal' role='form' method='POST' action='modifDictees.php'><input type='text' name='id' hidden value=". $id . " >" . 
                 "<div class='table-responsive col-md-3 .col-md-offset-3'><table class='table table-striped'>" .       
-                "<tr><td>Titre : </td><td COLSPAN=2><input type='text' name='titre' value=". $resultats['titre'] . "/></td></tr>" .
+                "<tr><td>Titre : </td><td COLSPAN=2><textarea name='texte'>". $resultats['titre'] ."</textarea></td></tr>" .
                 "<tr><td>Texte : </td><td COLSPAN=2><textarea name='texte'>". $resultats['corps'] ."</textarea></td></tr>" .
                 "<tr><td>Auteur : </td><td COLSPAN=2><input type='text' name='auteur' value=". $resultats['auteur'] . "></td></tr>" .
 				"<tr><td>Niveau : </td><td COLSPAN=2><input type='text' name='niveau' value=". $resultats['niveau'] . "></td></tr>" .
