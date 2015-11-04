@@ -81,6 +81,29 @@ mysql_query("SET NAMES UTF8");
 
         <blockquote style="margin-top:55px;">
             <p>LISTE DES DICTEES </p>
+            
+            <form>
+            <?php //$sql = "SELECT * FROM table WHERE colums LIKE '%".$word."%'"; ?>
+
+            <label>Auteur</label>
+            <input type='texte' name='recherche' value=""> &nbsp;
+            <label>Titre</label>
+            <input type='texte' name='recherche' value=""> &nbsp;
+            <label>Niveau</label>
+            <select name='niveau'>
+
+            <?php
+            $sql2= "SELECT * FROM niveau";
+                $envoi_requete2= mysql_query($sql2);
+                while ($resultats2=mysql_fetch_array($envoi_requete2)){
+                    $varid = $resultats2['idniveau'];
+                    $niveau=$resultats2['libelle_niveau'];
+                    echo "<option value='".$varid."' ";
+                    if($varid == $resultats['niveau']){echo "selected";}
+                    echo ">".$niveau."</option>";
+                } ?></select>
+            <button type='submit' method='POST'>Rechercher</button>
+            </form>
             <?php
 // Compte le nombre d'affichage
             $sql = "SELECT * FROM texte";
@@ -89,7 +112,7 @@ mysql_query("SET NAMES UTF8");
             while ($resultats = mysql_fetch_array($envoi_requete)) {
                 $compt++;
             }
-            echo "<small>Nombre de dictées affichées : " . $compt . "</small></blockquote>";
+            echo "<small></br>Nombre de dictées affichées : " . $compt . "</small></blockquote>";
             ?>
 
             <?php
