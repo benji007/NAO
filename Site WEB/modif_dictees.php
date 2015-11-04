@@ -58,10 +58,6 @@ mysql_query("SET NAMES UTF8");
                 </ul>
             </nav></div>
 
-
-
-
-
         <!--         Navbar bottom -->
 
         <div class="navbar navbar-inverse navbar-fixed-bottom">
@@ -73,16 +69,10 @@ mysql_query("SET NAMES UTF8");
         </div>
 
 
-
-
-        <blockquote>
+        <blockquote style="margin-top:55px;">
             <p>DICTEES A MODIFIER </p>
-
-
-
-            <a href="vos_dictees.php" role="button">Retourner dans la listes des dictées</a> </br></br></br>
-            
-            
+            <a href="vos_dictees.php" role="button">Retourner dans la listes des dictées</a>
+        </blockquote> 
             <?php
             
             $id =$_GET['texte'];
@@ -90,17 +80,39 @@ mysql_query("SET NAMES UTF8");
             $envoi_requete = mysql_query($sql);
             $compt = 1;
 
-            // Affichage de la table sous forme de tableaux
-            while ($resultats = mysql_fetch_assoc($envoi_requete)) {
-                echo "<form class='form-horizontal' role='form' method='POST' action='modifDictees.php'><input type='text' name='id' hidden value=". $id . " >" . 
+            // Affichage de la table sous forme de tableaux		
+			while ($resultats = mysql_fetch_assoc($envoi_requete)){
+				
+				/* write firt part of form */
+				echo "<form class='form-horizontal' role='form' method='POST' action='modifDictees.php'>" . 
                 "<div class='table-responsive col-md-3 .col-md-offset-3'><table class='table table-striped'>" .       
-                "<tr><td>Titre : </td><td COLSPAN=2><textarea name='texte'>". $resultats['titre'] ."</textarea></td></tr>" .
+                "<tr><td>Titre : </td><td COLSPAN=2><input type='texte' name='titre' value='". $resultats['titre'] ."'></td></tr>" .
                 "<tr><td>Texte : </td><td COLSPAN=2><textarea name='texte'>". $resultats['corps'] ."</textarea></td></tr>" .
-                "<tr><td>Auteur : </td><td COLSPAN=2><input type='text' name='auteur' value=". $resultats['auteur'] . "></td></tr>" .
-				"<tr><td>Niveau : </td><td COLSPAN=2><input type='text' name='niveau' value=". $resultats['niveau'] . "></td></tr>" .
+                "<tr><td>Auteur : </td><td COLSPAN=2><input type='text' name='auteur' value='". $resultats['auteur'] . "'></td></tr>" .
+				"<tr><td>Niveau : </td><td COLSPAN=2><select name='niveau'>";
+				/* end */
+				
+				/* write second part of form */
+				$sql2= "SELECT * FROM niveau";
+				$envoi_requete2= mysql_query($sql2);
+				while ($resultats2=mysql_fetch_array($envoi_requete2)){
+					$varid = $resultats2['idniveau'];
+					$niveau=$resultats2['libelle_niveau'];
+					echo "<option value='".$varid."' ";
+					if($varid == $resultats['niveau']){echo "selected";}
+					echo ">".$niveau."</option>";
+				}		
+				/* end */
+				
+				/* write third part of form */
+				echo "</select></td></tr>" .
                 "</table>".
-                "<button type='submit' method='POST' class='btn btn-primary col-lg-5 col-lg-offset-2'>Envoyer</button></div></form>";
-            }
+                "<button type='submit' method='POST' class='btn btn-primary col-lg-5 col-lg-offset-2'>Modifier</button></div>";
+				/* end */
+				
+				/* Hide var */
+				echo "<input type='hidden' name='idtexte' value='".$id."'></form>";
+			}		
             ?>
 
     </body>

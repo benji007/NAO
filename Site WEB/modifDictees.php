@@ -6,17 +6,18 @@ session_start();
 require_once './js/pdoclass.php';
 $pdo = PdoSlam1::getPdoSlam1();
 
+
+// Take var POST
 $id = $_POST['idtexte'];
+
 $titre = $_POST['titre'];
-$corps = $_POST['corps'];
+$texte = $_POST['texte'];
 $auteur = $_POST['auteur'];
 $niveau = $_POST['niveau'];
 
-require_once './js/pdoclass.php';
-$pdo = PdoSlam1::getPdoSlam1();
 
 $pdo->requeteAction(
-        "UPDATE texte SET  titre='$titre', corps='$corps', auteur='$auteur', niveau='$niveau' WHERE idtexte=$id ");
+        "UPDATE texte SET  titre='$titre', corps='$texte', auteur='$auteur', niveau='$niveau' WHERE idtexte=$id ");
 
 
 

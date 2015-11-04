@@ -29,7 +29,7 @@ mysql_query("SET NAMES UTF8");
         <link rel="stylesheet" href="css/bootstrap-theme.min.css" type="text/css">
         <script src="js/bootstrap.min.js"></script>
         <link rel="stylesheet" href='css/moncss.css' type='text/javascript'>
-        <title>NAO Dictées</title>
+        <title>Entreprises</title>
 
         <!--Javascript-->
         <script>
@@ -79,7 +79,7 @@ mysql_query("SET NAMES UTF8");
             </nav>
         </div>
 
-        <blockquote>
+        <blockquote style="margin-top:55px;">
             <p>LISTE DES DICTEES </p>
             <?php
 // Compte le nombre d'affichage
@@ -88,64 +88,37 @@ mysql_query("SET NAMES UTF8");
             $compt = 0;
             while ($resultats = mysql_fetch_array($envoi_requete)) {
                 $compt++;
-				
             }
             echo "<small>Nombre de dictées affichées : " . $compt . "</small></blockquote>";
             ?>
 
-
-            <ul class="pagination">
-                <li class="disabled"><a href="#">Option de trie :</a></li>
-                <li><a href="vos_dictees.php?texte=ASC" role="button">Afficher tous croissant</a></li>
-                <li><a href="vos_dictees.php?texte=DESC" role="button">Afficher tous décroissant</a></li>
-            </ul><br>
-
             <?php
-			
-// Selection de la totalitï¿½ de la table "Entreprises"
-            if (isset($_GET['texte'])) {
-                $recherche = $_GET['texte'];
-                if ($recherche == "ASC") {
-                    $choix = "ORDER BY nom ASC";
-                } elseif ($recherche == "DESC") {
-                    $choix = "ORDER BY nom DESC";
-                } else {
-                    $choix = "";
-                }
-            } else {
 
-                $_GET['texte'] = "";
-                $choix = $_GET['texte'];
-            }
-
-            $sql = "SELECT * FROM texte $choix";
+            $sql = "SELECT * FROM texte";
             $envoi_requete = mysql_query($sql);
             $compt = 1;
-
-// Affichage de la table sous forme de tableaux
-	
-	while ($resultats = mysql_fetch_array($envoi_requete))
-	{
-		$idtexte = $resultats['idtexte'] ;
-		$titre =  $resultats['titre'] ;
-		$corps = $resultats['corps'];
-		$auteur = $resultats['auteur'];
-		$idniveau = $resultats['niveau'];
-		
-		$sql2= "SELECT libelle_niveau FROM niveau WHERE idniveau = (SELECT niveau FROM texte WHERE niveau=".$idniveau.")";
-		$envoi_requete2= mysql_query($sql2);
-		while ($resultats2=mysql_fetch_array($envoi_requete2))
-		{
-			$niveau=$resultats2['libelle_niveau'];
-			 echo "<div class='table-responsive col-md-3 .col-md-offset-3'><table class='table table-striped'>" .
-               "<tr><td>N° : </td><td>" . $compt++ . "</td><td ALIGN='right'>" . "<a href='modif_dictees.php?texte=" . $resultats['idtexte'] . "'><span class='glyphicon glyphicon-pencil' ></span> &nbsp;" . "<a href ='suppr_dictees.php?id=".$resultats['idtexte']."'><span class='glyphicon glyphicon-remove-circle red' ></span>" . "</td></tr>" . 
-               "<tr><td>Titre : </td><td COLSPAN=2> " . $titre. "</td></tr>" .
-               "<tr><td>Texte : </td><td COLSPAN=2>" . $corps. "</td></tr>" .
-               "<tr><td>Auteur: </td><td COLSPAN=2>" . $auteur. "</td></tr>" .
-			   "<tr><td>Niveau: </td><td COLSPAN=2>".$niveau."</td></tr>".
-               "</table></div>";		
-		}		
-	}		
+			// Affichage de la table sous forme de tableaux
+			
+			while ($resultats = mysql_fetch_array($envoi_requete)) {
+				$idtexte = $resultats['idtexte'] ;
+				$titre =  $resultats['titre'] ;
+				$corps = $resultats['corps'];
+				$auteur = $resultats['auteur'];
+				$idniveau = $resultats['niveau'];
+				
+				$sql2= "SELECT libelle_niveau FROM niveau WHERE idniveau = '".$idniveau."'";
+				$envoi_requete2= mysql_query($sql2);
+				while ($resultats2=mysql_fetch_array($envoi_requete2)) {
+					 $niveau=$resultats2['libelle_niveau'];
+					 echo "<div class='table-responsive col-md-3 .col-md-offset-3'><table class='table table-striped'>" .
+					   "<tr><td>N° : </td><td>" . $compt++ . "</td><td ALIGN='right'>" . "<a href='modif_dictees.php?texte=" . $resultats['idtexte'] . "'><span class='glyphicon glyphicon-pencil' ></span> &nbsp;" . "<a href ='suppr_dictees.php?id=".$resultats['idtexte']."'><span class='glyphicon glyphicon-remove-circle red' ></span>" . "</td></tr>" . 
+					   "<tr><td>Titre : </td><td COLSPAN=2> " . $titre. "</td></tr>" .
+					   "<tr><td>Texte : </td><td COLSPAN=2>" . $corps. "</td></tr>" .
+					   "<tr><td>Auteur: </td><td COLSPAN=2>" . $auteur. "</td></tr>" .
+					   "<tr><td>Niveau: </td><td COLSPAN=2>".$niveau."</td></tr>".
+					   "</table></div>";		
+				}		
+			}		
 			?>
 			
 
