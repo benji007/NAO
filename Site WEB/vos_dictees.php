@@ -1,26 +1,7 @@
-<!DOCTYPE html>
 <?php
-
-if (isset($_COOKIE['login'])) {
-    if(!isset($_COOKIE['temp'])) {
-        echo '<div id="succes" class="alert alert-success">Felicitation ! Vous vous êtes correctement connecté.</div> ';
-        setcookie("temp", 1, time()+3600);
-    }
-} else {
-    header('Location: index.php');
-}
-
-// Connexion à la base de donn�es
-ini_set('display_errors','off');
-$host = 'localhost';
-$user = 'root';
-$password = '';
-$bdd = 'nao';
-$base = mysql_connect($host, $user, $password);
-mysql_select_db($bdd) or die("Impossible de se connecter a la base de donnees $bdd");
-mysql_query("SET NAMES UTF8");
+    require_once("includes/configuration.php");
 ?>
-
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
@@ -36,16 +17,24 @@ mysql_query("SET NAMES UTF8");
             $('#succes').show(0).delay(2000).hide("slow");
         </script>
 		
+        <style>
+        #tab_search tr td{
+            width: 100px;
+        }
+        #tab_search tr td input,#tab_search tr td select{
+            width: 200px;
+        }
+        </style>
 		
     </head>
     <body class="col-sm-12 background-body">
         <div class="navbar  navbar-inverse navbar-fixed-top">
             <nav class="nav-collapse" role="navigation">
                 <div class="navbar-header">
-                    <a class="navbar-brand color">
+                    <div class="navbar-brand color">
                         <div class="color">
                             NAO dictée
-                        </div></a>
+                        </div></div>
                 </div>
                 <ul class="nav navbar-nav">
                     <li class="active"><a class="navbar-brand" href="vos_dictees.php">Vos dictées</a></li>
@@ -79,49 +68,79 @@ mysql_query("SET NAMES UTF8");
             </nav>
         </div>
 
-        <blockquote style="margin-top:55px;">
+        <blockquote>
             <p>LISTE DES DICTEES </p>
             
-            <form>
-            <?php //$sql = "SELECT * FROM table WHERE colums LIKE '%".$word."%'"; ?>
-
-            <label>Auteur</label>
-            <input type='texte' name='recherche' value=""> &nbsp;
-            <label>Titre</label>
-            <input type='texte' name='recherche' value=""> &nbsp;
-            <label>Niveau</label>
-            <select name='niveau'>
-
-            <?php
-            $sql2= "SELECT * FROM niveau";
-                $envoi_requete2= mysql_query($sql2);
-                while ($resultats2=mysql_fetch_array($envoi_requete2)){
-                    $varid = $resultats2['idniveau'];
-                    $niveau=$resultats2['libelle_niveau'];
-                    echo "<option value='".$varid."' ";
-                    if($varid == $resultats['niveau']){echo "selected";}
-                    echo ">".$niveau."</option>";
-                } ?></select>
-            <button type='submit' method='POST'>Rechercher</button>
+            <form class='form-horizontal' method='POST' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>'>
+                <fieldset>
+                    <table id="tab_search">
+                        <tr><td><label>Auteur</label></td><td><input type="text" name="autor"></td></tr>
+                        <tr><td><label>Titre</label></td><td><input type="text" name="title"></td></tr>
+                        <tr>
+                            <td><label>Niveau</label></td>
+                            <td>
+                                <select name='niveau'>
+                                    <option value='0'>Selectionner une classe</option>
+                                    <?php
+                                        $sql2= "SELECT * FROM niveau";
+                                        $envoi_requete2= mysql_query($sql2);
+                                        while ($resultats2=mysql_fetch_array($envoi_requete2)){
+                                            $varid = $resultats2['idniveau'];
+                                            $niveau=$resultats2['libelle_niveau'];
+                                            echo "<option value='".$varid."' ";
+                                            if($varid == $resultats['niveau']){echo "selected";}
+                                            echo ">".$niveau."</option>";
+                                        } 
+                                    ?>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr><td colspan='2'><center><input type="submit" name="search" value="Rechercher"/></center></td></tr>
+                    </table>
+                </fieldset>
             </form>
+
+            <br />
+
             <?php
-// Compte le nombre d'affichage
-            $sql = "SELECT * FROM texte";
+            // Compte le nombre d'affichage
+            if(isset($_POST['search'])){
+                $title = $_POST['title'];
+                $autor = $_POST['autor'];
+                $niveau = $_POST['niveau'];
+                $sql = "SELECT * FROM texte ";
+                if(($niveau != 0)or(trim($title) != "")or(trim($autor) != "")){
+                    $sql .= "WHERE ";
+                    $a = 0;
+                    if($niveau != 0){
+                        $sql .= "niveau='".$niveau."' ";
+                        $a = 1;
+                    }
+                    if(trim($title) != ""){
+                        if($a==1){
+                            $sql .= "AND ";
+                        }
+                        $sql .= "titre LIKE '%".$title."%' ";
+                        $a = 2;
+                    }
+                    if(trim($autor) != ""){
+                        if(($a==1) OR ($a==2)){
+                            $sql .= "AND ";
+                        }
+                        $sql .= "auteur LIKE '%".$autor."%' ";
+                    }
+                }
+            }else{$sql = "SELECT * FROM texte";}
+
             $envoi_requete = mysql_query($sql);
             $compt = 0;
             while ($resultats = mysql_fetch_array($envoi_requete)) {
                 $compt++;
             }
-            echo "<small></br>Nombre de dictées affichées : " . $compt . "</small></blockquote>";
-            ?>
-
-            <?php
-
-            $sql = "SELECT * FROM texte";
+            echo "<small>Nombre de dictées affichées : " . $compt . "</small></blockquote>";
             $envoi_requete = mysql_query($sql);
             $compt = 1;
 			// Affichage de la table sous forme de tableaux
-			
 			while ($resultats = mysql_fetch_array($envoi_requete)) {
 				$idtexte = $resultats['idtexte'] ;
 				$titre =  $resultats['titre'] ;
